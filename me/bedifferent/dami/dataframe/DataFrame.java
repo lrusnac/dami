@@ -53,10 +53,7 @@ public class DataFrame {
                 String[] arr = line.split(seperator);
                 Attribute[] arrAtt = new Attribute[interestedColumns.length];
                 for (int i = 0; i < interestedColumns.length; i++) {
-                    if (arr[interestedColumns[i]].equals("")) {
-                        arr[interestedColumns[i]] = "";
-                    }
-                    arrAtt[i] = new Attribute(arr[interestedColumns[i]]);
+                    arrAtt[i] = new Attribute(arr[interestedColumns[i]], types[i]);
                 }
 
                 lines.add(arrAtt);

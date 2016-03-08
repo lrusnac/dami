@@ -5,7 +5,7 @@ package me.bedifferent.dami.dataframe;
  */
 public class Attribute {
     public enum Type {
-        NUMERIC, LITERAL, NOMINAL
+        NUMERIC, LITERAL, NOMINAL, SET
     }
 
     private Type type;
@@ -13,7 +13,7 @@ public class Attribute {
     private String literal = "NaN";
 
     public Attribute(String value) {
-        this.literal = value;
+        this.literal = value.toLowerCase();
         this.type = Type.LITERAL;
     }
 
@@ -24,6 +24,24 @@ public class Attribute {
 
     public Attribute(Integer value) {
         this(value.doubleValue());
+    }
+
+    public Attribute(Object obj, Type type) {
+        switch (type) {
+        case NUMERIC:
+            try {
+                this.numeric = Double.parseDouble(obj.toString());
+            } catch (NumberFormatException e) {
+                this.numeric = Double.NaN;
+            }
+            break;
+        case LITERAL:
+            this.literal = obj.toString().toLowerCase();
+            break;
+        default:
+            System.err.println("this type is not implemented yet");
+        }
+        this.type = type;
     }
 
     public Type getType() {
@@ -45,6 +63,8 @@ public class Attribute {
         case LITERAL:
             return this.literal;
         case NOMINAL:
+            return "not implemented";
+        case SET:
             return "not implemented";
         default:
             return "undefined";
