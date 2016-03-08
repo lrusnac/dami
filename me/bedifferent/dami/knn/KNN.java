@@ -1,6 +1,5 @@
 package me.bedifferent.dami.knn;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +8,7 @@ import me.bedifferent.dami.dataframe.Attribute;
 import me.bedifferent.dami.dataframe.DataFrame;
 
 public class KNN {
-    /* is the degree program games? based on the the interest in the course, number of games and number of programming language */
+    /* is the degree program games? based on the the interest in the course, number of games and hours of playing */
     private static List<KNNRow> getKNN(int k, KNNRow m, List<KNNRow> trainingSet) {
 
         List<Pair<KNNRow, Double>> rowDistances = new LinkedList<>();
@@ -84,7 +83,7 @@ public class KNN {
             rows.add(new KNNRow(att[4].getLiteral(), numberOfGames, hoursPlaying, att[5].getLiteral()));
         }
 
-        Collections.shuffle(rows);
+        // Collections.shuffle(rows);
         List<KNNRow> trainingSet = rows.subList(0, rows.size() / 3 * 2);
         List<KNNRow> testSet = rows.subList(rows.size() / 3 * 2, rows.size());
 

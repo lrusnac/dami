@@ -21,15 +21,12 @@ public class KNNRow {
     public Double distance(KNNRow m) {
         double dist = 0;
 
-        // dist += Math.pow(numberOfGames - m.numberOfGames, 2);
-        // dist += Math.pow(hoursPlaying - m.hoursPlaying, 2);
-        //
-        // dist = Math.sqrt(dist);
+        dist += Math.pow(numberOfGames - m.numberOfGames, 2);
+        dist += Math.pow(hoursPlaying - m.hoursPlaying, 2);
 
-        dist += Math.abs(numberOfGames - m.numberOfGames);
-        dist += Math.abs(hoursPlaying - m.hoursPlaying);
+        dist = Math.sqrt(dist);
 
-        if (courseInterest.equals(m.courseInterest))
+        if (!courseInterest.equals(m.courseInterest))
             dist++;
 
         return dist;
