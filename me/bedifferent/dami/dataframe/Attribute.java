@@ -13,7 +13,7 @@ public class Attribute {
     private String literal = "NaN";
 
     public Attribute(String value) {
-        this.literal = value.toLowerCase();
+        this.literal = value.toLowerCase().replace("\"", "");
         this.type = Type.LITERAL;
     }
 
@@ -36,7 +36,7 @@ public class Attribute {
             }
             break;
         case LITERAL:
-            this.literal = obj.toString().toLowerCase();
+            this.literal = obj.toString().toLowerCase().replace("\"", "");
             break;
         default:
             System.err.println("this type is not implemented yet");

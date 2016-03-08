@@ -7,9 +7,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
-public class DataFrame {
+public class DataFrame implements Iterable<Attribute[]> {
     private Attribute[][] df;
 
     private String[] header;
@@ -31,7 +33,11 @@ public class DataFrame {
         this.readFromCSV(";");
     }
 
-    public void readFromCSV(String seperator) {
+    public Iterator<Attribute[]> iterator() {
+        return new DataFrameIterator(this);
+    }
+
+    private void readFromCSV(String seperator) {
         List<Attribute[]> lines = new ArrayList<Attribute[]>();
         BufferedReader bufRdr = null;
         boolean header = true;
@@ -83,6 +89,10 @@ public class DataFrame {
     }
 
     public Attribute[] getColumn(int columNumber) {
+        if (columNumber >= getNumCols()) {
+            System.err.println("wrong column number");
+            return null;
+        }
         Attribute[] col = new Attribute[getNumRows()];
 
         for (int i = 0; i < col.length; i++) {
@@ -90,6 +100,14 @@ public class DataFrame {
         }
 
         return col;
+    }
+
+    public Attribute[] getRow(int rowNumber) {
+        if (rowNumber >= getNumRows()) {
+            System.err.println("wrong row number");
+            return null;
+        }
+        return df[rowNumber];
     }
 
     private int headerNameToColNumber(String name) {
@@ -108,4 +126,31 @@ public class DataFrame {
 
         return sb.toString();
     }
+
+    private class DataFrameIterator implements Iterator<Attribute[]> {
+        private int cursor;
+        private DataFrame df;
+
+        public DataFrameIterator(DataFrame df) {
+            this.df = df;
+            this.cursor = 0;
+        }
+
+        public boolean hasNext() {
+            return this.cursor < df.getNumRows();
+        }
+
+        public Attribute[] next() {
+            if (this.hasNext()) {
+                cursor++;
+                return df.getRow(cursor - 1);
+            }
+            throw new NoSuchElementException();
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
+
 }

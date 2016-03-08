@@ -5,6 +5,7 @@ import java.util.Arrays;
 import me.bedifferent.dami.dataframe.Attribute;
 import me.bedifferent.dami.dataframe.Attribute.Type;
 import me.bedifferent.dami.dataframe.DataFrame;
+import me.bedifferent.dami.knn.KNN;
 
 public class App {
 
@@ -19,8 +20,11 @@ public class App {
 
         System.out.println("ages: " + Arrays.toString(df.getColumn("age")));
         System.out.println("shoesize: " + Arrays.toString(df.getColumn("shoesize")));
+        System.out.println("degree: " + Arrays.toString(df.getColumn(4)));
 
         System.out.println("num rows: " + df.getNumRows());
         System.out.println("num cols: " + df.getNumCols());
+
+        KNN.runKNN(df);
     }
 }
