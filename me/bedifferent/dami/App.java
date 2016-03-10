@@ -5,6 +5,7 @@ import java.util.Arrays;
 import me.bedifferent.dami.dataframe.Attribute;
 import me.bedifferent.dami.dataframe.Attribute.Type;
 import me.bedifferent.dami.dataframe.DataFrame;
+import me.bedifferent.dami.kmeans.KMeans;
 import me.bedifferent.dami.knn.KNN;
 
 public class App {
@@ -26,5 +27,7 @@ public class App {
         System.out.println("num cols: " + df.getNumCols());
 
         KNN.runKNN(df);
+        
+        KMeans.runKMeans(df);
     }
 }
